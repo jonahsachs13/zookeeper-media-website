@@ -37,7 +37,7 @@ Mac Pro (M2 Ultra)`,
   {
     question: "Can I share recipes to Instagram Stories?",
     answer:
-      "Yes! Easy Recipe App includes a share to Instagram Stories feature. No data is shared with Instagram or Meta — it's simply a convenient sharing function that works through your device.",
+      "Yes! Easy Recipe App includes a share to Instagram Stories feature. No data is shared with Instagram or Meta. It's simply a convenient sharing function that works through your device.",
   },
   {
     question: "Does Easy Recipe App work in the EU?",

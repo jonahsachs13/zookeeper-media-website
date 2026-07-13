@@ -2,15 +2,16 @@ import type { Metadata } from "next";
 import { EasyRecipeFooter } from "@/components/easy-recipe/footer";
 import { EasyRecipeSubNav } from "@/components/easy-recipe/sub-nav";
 import { PRIVACY_SECTIONS } from "@/lib/easy-recipe/privacy-content";
+import { withBrandSocial } from "@/lib/social-metadata";
 
-export const metadata: Metadata = {
-  title: "Privacy Policy - Easy Recipe App",
-};
+export const metadata: Metadata = withBrandSocial("easy-recipe", {
+  title: "Privacy Policy",
+});
 
 export default function PrivacyPage() {
   return (
     <div className="min-h-screen">
-      <div className="pt-14 pb-12 sm:pb-20">
+      <div className="pb-12 sm:pb-20">
         <EasyRecipeSubNav variant="minimal" />
         <div className="mx-auto max-w-[800px] px-4 pt-8 sm:px-6">
           <h1

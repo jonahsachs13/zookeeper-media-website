@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/providers/theme-provider";
+import { getMetadataBase } from "@/lib/metadata-base";
+import { brandSocialMetadata } from "@/lib/social-metadata";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -13,34 +15,24 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL("https://zookeepermedia.com"),
-  title: "ZooKeeper Media",
-  description: "Thoughtful apps and soothing podcasts from ZooKeeper Media.",
-  icons: {
-    icon: "/favicon.png",
-    apple: "/favicon.png",
-  },
-  openGraph: {
+const DESCRIPTION =
+  "Thoughtful apps and soothing podcasts from ZooKeeper Media.";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    metadataBase: await getMetadataBase(),
     title: "ZooKeeper Media",
-    description: "Thoughtful apps and soothing podcasts from ZooKeeper Media.",
-    type: "website",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "ZooKeeper Media",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "ZooKeeper Media",
-    description: "Thoughtful apps and soothing podcasts from ZooKeeper Media.",
-    images: ["/og-image.png"],
-  },
-};
+    description: DESCRIPTION,
+    icons: {
+      icon: "/favicon.png",
+      apple: "/favicon.png",
+    },
+    ...brandSocialMetadata("zkm", {
+      title: "ZooKeeper Media",
+      description: DESCRIPTION,
+    }),
+  };
+}
 
 export default function RootLayout({
   children,
@@ -50,9 +42,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} bg-white text-black antialiased dark:bg-black dark:text-white`}
+        className={`${geistSans.variable} ${geistMono.variable} text-black antialiased dark:text-white`}
       >
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

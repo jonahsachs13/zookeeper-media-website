@@ -1,10 +1,11 @@
 import { SiteHeader } from "@/components/layout/site-header";
+import { withBrandSocial } from "@/lib/social-metadata";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Health Share - ZooKeeper Media",
-  description: "Health Share — coming soon from ZooKeeper Media.",
-};
+export const metadata: Metadata = withBrandSocial("zkm", {
+  title: "Health Share",
+  description: "Health Share: coming soon from ZooKeeper Media.",
+});
 
 export default function HealthSharePage() {
   return (

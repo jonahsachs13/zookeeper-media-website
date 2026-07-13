@@ -1,24 +1,19 @@
 import type { Metadata } from "next";
+import { ContactForm } from "@/components/contact-form";
 import { EasyRecipeFooter } from "@/components/easy-recipe/footer";
 import { EasyRecipeSubNav } from "@/components/easy-recipe/sub-nav";
-import { SupportForm } from "@/components/easy-recipe/support-form";
+import { withBrandSocial } from "@/lib/social-metadata";
 
-export const metadata: Metadata = {
-  title: "Support - Easy Recipe App",
-};
+export const metadata: Metadata = withBrandSocial("easy-recipe", {
+  title: "Support",
+});
 
-export default function SupportPage() {
+export default function EasyRecipeSupportPage() {
   return (
     <div className="min-h-screen">
-      <div className="pt-14 pb-12 sm:pb-20">
-        <EasyRecipeSubNav variant="minimal" />
+      <div className="pb-12 sm:pb-20">
+        <EasyRecipeSubNav />
         <div className="mx-auto max-w-[800px] px-4 pt-8 sm:px-6">
-          <h1
-            className="mb-6 text-black sm:mb-8 dark:text-white"
-            style={{ fontSize: "clamp(36px, 8vw, 48px)", fontWeight: 700 }}
-          >
-            Support
-          </h1>
           <p
             className="mb-8 text-black dark:text-white"
             style={{
@@ -27,10 +22,13 @@ export default function SupportPage() {
               letterSpacing: "-0.01em",
             }}
           >
-            Need help with Easy Recipe App? We&apos;re here to assist you. Send us a
-            message and we&apos;ll get back to you as soon as possible.
+            Have a question about Easy Recipe App? Send us a message and we&apos;ll
+            get back to you as soon as possible.
           </p>
-          <SupportForm />
+          <ContactForm
+            brand="easy-recipe"
+            subject="New Support Form Submission from Easy Recipe App"
+          />
         </div>
       </div>
       <EasyRecipeFooter showPrivacyLink={false} />

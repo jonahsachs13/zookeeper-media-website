@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-/** White backdrop so transparent PNG marketing shots don't pick up dark-mode page black. */
+/** Centers marketing screenshots; transparent PNGs inherit the page background. */
 export function MarketingImage({
   children,
   className,
@@ -9,13 +9,6 @@ export function MarketingImage({
   className?: string;
 }) {
   return (
-    <div
-      className={cn(
-        "w-full bg-white py-2 [color-scheme:light] dark:bg-white",
-        className,
-      )}
-    >
-      <div className="mx-auto flex justify-center">{children}</div>
-    </div>
+    <div className={cn("flex w-full justify-center", className)}>{children}</div>
   );
 }

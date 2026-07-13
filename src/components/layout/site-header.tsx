@@ -3,19 +3,21 @@
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { isEasyRecipeDomain } from "@/lib/easy-recipe/paths";
+import {
+  getHubHomeHref,
+  getSiteNavHost,
+  getSiteNavLinks,
+  type SiteNavLink,
+} from "@/lib/site-nav";
 import { ZkmLogo } from "@/components/zookeeper/zkm-logo";
-import { ThemeToggle } from "./theme-toggle";
-
-const NAV_LINKS = [
-  { href: "/podcasts", label: "Podcasts" },
-  { href: "/easy-recipe", label: "Easy Recipe App" },
-  { href: "/active-agent", label: "Active Agent" },
-  { href: "/health-share", label: "Health Share" },
-] as const;
+import { cn } from "@/lib/utils";
 
 type SiteHeaderProps = {
   variant?: "default" | "home";
+  /** On app pages: header scrolls away; app sub-nav sticks instead of staying fixed. */
+  position?: "fixed" | "static";
 };
 
 function NavLink({
@@ -30,65 +32,122 @@ function NavLink({
   onClick?: () => void;
 }) {
   const pathname = usePathname();
-  const isActive = pathname === href || (href !== "/" && pathname.startsWith(href));
+  const isExternal = href.startsWith("http");
+  const onEra = isEasyRecipeDomain(getSiteNavHost());
+  const isActive =
+    label === "Easy Recipe App" && onEra
+      ? true
+      : !isExternal && (pathname === href || (href !== "/" && pathname.startsWith(href)));
 
   const homeStyles = isActive
-    ? "font-semibold text-black"
-    : "text-black/70 hover:text-black";
+    ? "font-semibold text-black dark:text-brand-zkm"
+    : "text-black/70 hover:text-black dark:text-brand-zkm/70 dark:hover:text-brand-zkm";
   const defaultStyles = isActive
     ? "font-semibold text-black dark:text-white"
     : "text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white";
 
+  const className = cn(
+    "inline-block text-sm transition-colors md:transition-all md:hover:scale-110",
+    variant === "home" ? homeStyles : defaultStyles,
+  );
+
+  if (isExternal) {
+    return (
+      <a href={href} onClick={onClick} className={className}>
+        {label}
+      </a>
+    );
+  }
+
   return (
-    <Link
-      href={href}
-      onClick={onClick}
-      className={`text-sm transition-colors ${variant === "home" ? homeStyles : defaultStyles}`}
-    >
+    <Link href={href} onClick={onClick} className={className}>
       {label}
     </Link>
   );
 }
 
-export function SiteHeader({ variant = "default" }: SiteHeaderProps) {
+export function SiteHeader({ variant = "default", position = "fixed" }: SiteHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [logoPulsing, setLogoPulsing] = useState(false);
+  const [navLinks, setNavLinks] = useState<SiteNavLink[]>(() => getSiteNavLinks());
+  const [hubHomeHref, setHubHomeHref] = useState("/");
   const isHome = variant === "home";
+  const isFixed = position === "fixed";
+
+  useEffect(() => {
+    const host = getSiteNavHost();
+    setNavLinks(getSiteNavLinks(host));
+    setHubHomeHref(getHubHomeHref(host));
+  }, []);
+
+  const headerPositionClass = isFixed
+    ? "fixed top-0 right-0 left-0"
+    : "relative";
+
+  const logoHref = isHome ? "/" : hubHomeHref;
+  const logoIsExternal = logoHref.startsWith("http");
+
+  const logo = (
+    <ZkmLogo
+      onAnimationEnd={() => setLogoPulsing(false)}
+      className={cn(
+        "h-8 w-auto sm:h-9",
+        isHome ? "text-black dark:text-brand-zkm" : "text-black dark:text-white",
+        logoPulsing && "animate-logo-pulse-burst",
+      )}
+    />
+  );
 
   return (
     <>
       <header
         className={
           isHome
-            ? "fixed top-0 right-0 left-0 z-50 border-b border-black/10 bg-brand-zkm"
-            : "fixed top-0 right-0 left-0 z-50 border-b border-black/10 bg-white/95 backdrop-blur-sm dark:border-white/10 dark:bg-black/95"
+            ? `${headerPositionClass} z-50 bg-brand-zkm dark:bg-black`
+            : `${headerPositionClass} z-50 bg-white dark:bg-black`
         }
       >
-        <div className="mx-auto flex h-14 max-w-[1200px] items-center justify-between gap-4 px-4 sm:px-6">
-          <Link href="/" className="flex flex-shrink-0 items-center transition-opacity hover:opacity-80">
-            <ZkmLogo
-              className={`h-8 w-auto sm:h-9 ${isHome ? "text-black" : "text-black dark:text-white"}`}
-            />
-          </Link>
+        <div className="flex h-14 w-full items-center px-4 sm:px-6 lg:px-10 xl:px-16 2xl:px-24">
+          {logoIsExternal ? (
+            <a
+              href={logoHref}
+              className="flex flex-shrink-0 items-center transition-transform hover:scale-110"
+            >
+              {logo}
+            </a>
+          ) : (
+            <Link
+              href={logoHref}
+              onClick={(event) => {
+                if (!isHome || logoPulsing) return;
+                event.preventDefault();
+                setLogoPulsing(true);
+              }}
+              className="flex flex-shrink-0 items-center transition-transform hover:scale-110"
+            >
+              {logo}
+            </Link>
+          )}
 
-          <nav className="hidden items-center gap-5 md:flex">
-            {NAV_LINKS.map((item) => (
+          <nav className="ml-6 hidden items-center gap-6 md:flex lg:ml-8 lg:gap-8 xl:gap-10">
+            {navLinks.map((item) => (
               <NavLink key={item.href} {...item} variant={variant} />
             ))}
           </nav>
 
-          <div className="flex items-center gap-2">
-            <ThemeToggle onYellow={isHome} />
+          <div className="ml-auto flex flex-shrink-0 items-center gap-2 md:hidden">
             <button
               type="button"
               onClick={() => setMenuOpen(!menuOpen)}
-              className={`rounded-lg p-2 transition-colors md:hidden ${
+              className={
                 isHome
-                  ? "text-black/70 hover:bg-black/5 hover:text-black"
-                  : "text-gray-600 hover:bg-black/5 dark:text-gray-400 dark:hover:bg-white/10"
-              }`}
+                  ? "rounded-full bg-black/10 p-2 text-black transition-transform hover:scale-110 dark:bg-brand-zkm/10 dark:text-brand-zkm"
+                  : "rounded-full bg-gray-100 p-2 text-gray-600 transition-transform hover:scale-110 dark:bg-zinc-800 dark:text-gray-400"
+              }
               aria-label="Toggle menu"
+              aria-expanded={menuOpen}
             >
-              {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              {menuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
             </button>
           </div>
         </div>
@@ -96,14 +155,15 @@ export function SiteHeader({ variant = "default" }: SiteHeaderProps) {
 
       {menuOpen && (
         <div
-          className={`fixed top-14 right-0 left-0 z-40 border-b px-4 py-4 md:hidden ${
+          className={cn(
+            "fixed inset-x-0 top-14 z-[55] border-b px-3 py-4 md:hidden",
             isHome
-              ? "border-black/10 bg-brand-zkm"
-              : "border-black/10 bg-white dark:border-white/10 dark:bg-black"
-          }`}
+              ? "border-black/10 bg-brand-zkm dark:border-white/10 dark:bg-black"
+              : "border-black/10 bg-white dark:border-white/10 dark:bg-black",
+          )}
         >
           <nav className="flex flex-col gap-4">
-            {NAV_LINKS.map((item) => (
+            {navLinks.map((item) => (
               <NavLink
                 key={item.href}
                 {...item}

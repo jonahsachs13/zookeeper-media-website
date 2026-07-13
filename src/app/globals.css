@@ -5,8 +5,10 @@
 @theme {
   --color-brand-orange: #ff942f;
   --color-brand-orange-hover: #f08520;
-  --color-brand-agent: #443898;
-  --color-brand-agent-hover: #5a48b0;
+  --color-brand-fitness: #443898;
+  --color-brand-fitness-hover: #5a48b0;
+  --color-brand-fitness-light: #b0a4f5;
+  --color-brand-fitness-light-hover: #c8c0fa;
   --color-brand-zkm: #f5c518;
   --color-brand-zkm-hover: #e0b310;
 }
@@ -29,13 +31,192 @@
   animation: accordion-up 0.2s ease-out;
 }
 
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(56px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes reveal-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes reveal-scale {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes reveal-left {
+  from {
+    opacity: 0;
+    transform: translateX(-48px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes reveal-right {
+  from {
+    opacity: 0;
+    transform: translateX(48px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.reveal-section {
+  opacity: 0;
+}
+
+.reveal-section.reveal-up:not(.is-visible) {
+  animation: none;
+  transform: translateY(56px);
+}
+
+.reveal-section.reveal-fade:not(.is-visible) {
+  animation: none;
+}
+
+.reveal-section.reveal-scale:not(.is-visible) {
+  animation: none;
+  transform: scale(0.92);
+}
+
+.reveal-section.reveal-left:not(.is-visible) {
+  animation: none;
+  transform: translateX(-48px);
+}
+
+.reveal-section.reveal-right:not(.is-visible) {
+  animation: none;
+  transform: translateX(48px);
+}
+
+.reveal-section.reveal-up.is-visible {
+  animation: reveal-up var(--reveal-duration, 0.85s) cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms) both;
+}
+
+.reveal-section.reveal-fade.is-visible {
+  animation: reveal-fade var(--reveal-duration, 0.9s) ease-out var(--reveal-delay, 0ms) both;
+}
+
+.reveal-section.reveal-scale.is-visible {
+  animation: reveal-scale var(--reveal-duration, 0.8s) cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms) both;
+}
+
+.reveal-section.reveal-left.is-visible {
+  animation: reveal-left var(--reveal-duration, 0.85s) cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms) both;
+}
+
+.reveal-section.reveal-right.is-visible {
+  animation: reveal-right var(--reveal-duration, 0.85s) cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms) both;
+}
+
+@keyframes icon-marquee {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.icon-marquee-viewport {
+  position: relative;
+  left: 50%;
+  width: 100vw;
+  max-width: 100vw;
+  transform: translateX(-50%);
+  overflow: hidden;
+}
+
+.icon-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: icon-marquee 100s linear infinite;
+  will-change: transform;
+}
+
+.icon-marquee-row {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .icon-marquee-row {
+    gap: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@keyframes logo-pulse-burst {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@utility animate-logo-pulse-burst {
+  animation: logo-pulse-burst 0.55s ease-in-out 3;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .icon-marquee-track,
+  .animate-logo-pulse-burst,
+  .reveal-section.is-visible {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 html {
   scroll-behavior: smooth;
+  min-height: 100%;
+  color-scheme: light dark;
+  background-color: white;
+}
+
+html.dark {
+  background-color: black;
+}
+
+html.home-page {
+  background-color: var(--color-brand-zkm);
+}
+
+html.home-page.dark {
+  background-color: black;
 }
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
+  min-height: 100%;
+  min-height: 100dvh;
+  background-color: inherit;
 }
 
 img {

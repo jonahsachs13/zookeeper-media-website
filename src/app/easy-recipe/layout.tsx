@@ -1,47 +1,39 @@
 import type { Metadata } from "next";
-import { SiteHeader } from "@/components/layout/site-header";
+import { EasyRecipeChrome } from "@/components/easy-recipe/chrome";
+import { EasyRecipeDomainProvider } from "@/components/easy-recipe/domain-context";
+import { METADATA_DESCRIPTION } from "@/lib/easy-recipe/marketing";
+import { getMetadataBase } from "@/lib/metadata-base";
+import { getRequestHost } from "@/lib/request-host";
+import { brandSocialMetadata } from "@/lib/social-metadata";
 
-export const metadata: Metadata = {
-  metadataBase: new URL("https://easyrecipeapp.com"),
-  title: "Easy Recipe App - Cooking made easy.",
-  description:
-    "Easy Recipe App is a beautiful recipe app for iPhone, iPad, and Mac. Save and organize recipes, import from videos and websites, scale servings, and sync with iCloud.",
-  icons: {
-    icon: "/easy-recipe/favicon.png",
-    apple: "/easy-recipe/favicon.png",
-  },
-  openGraph: {
-    title: "Easy Recipe App",
-    description:
-      "Easy Recipe App is a beautiful recipe app for iPhone, iPad, and Mac. Save and organize recipes, import from videos and websites, scale servings, and sync with iCloud.",
-    type: "website",
-    images: [
-      {
-        url: "/easy-recipe/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Easy Recipe App",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Easy Recipe App",
-    description:
-      "Easy Recipe App is a beautiful recipe app for iPhone, iPad, and Mac. Save and organize recipes, import from videos and websites, scale servings, and sync with iCloud.",
-    images: ["/easy-recipe/og-image.png"],
-  },
-};
+const DESCRIPTION = METADATA_DESCRIPTION;
 
-export default function EasyRecipeLayout({
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    metadataBase: await getMetadataBase(),
+    title: "Easy Recipe App",
+    description: DESCRIPTION,
+    icons: {
+      icon: "/easy-recipe/favicon.png?v=9",
+      apple: "/easy-recipe/icon.png?v=9",
+    },
+    ...brandSocialMetadata("easy-recipe", {
+      title: "Easy Recipe App",
+      description: DESCRIPTION,
+    }),
+  };
+}
+
+export default async function EasyRecipeLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const host = await getRequestHost();
+
   return (
-    <>
-      <SiteHeader />
-      {children}
-    </>
+    <EasyRecipeDomainProvider host={host}>
+      <EasyRecipeChrome>{children}</EasyRecipeChrome>
+    </EasyRecipeDomainProvider>
   );
 }
