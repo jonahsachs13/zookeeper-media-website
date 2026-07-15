@@ -2,16 +2,16 @@ import { AppPageHeroHeader } from "@/components/ui/app-page-hero-header";
 import { AssetImage } from "@/components/ui/asset-image";
 import { MarketingImage } from "@/components/ui/marketing-image";
 import { RevealSection } from "@/components/ui/scroll-reveal";
-import { ASSETS, TAGLINE } from "@/lib/fitness-share/constants";
+import { ASSETS, TAGLINE } from "@/lib/active-agent/constants";
 
-export function FitnessShareHero() {
+export function ActiveAgentHero() {
   return (
     <section className="pb-12 pt-6 sm:pb-20 sm:pt-8">
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6">
         <div className="text-center">
           <AppPageHeroHeader
             src={ASSETS.icon}
-            alt="Fitness Share app icon"
+            alt="Active Agent app icon"
             title="Keep an eye on your agents."
           />
           <p
@@ -29,7 +29,7 @@ export function FitnessShareHero() {
             <MarketingImage>
               <AssetImage
                 src={ASSETS.menuBarScreenshot}
-                alt="Fitness Share showing live Cursor agent status across projects"
+                alt="Active Agent showing live Cursor agent status across projects"
                 intrinsicWidth={3810}
                 intrinsicHeight={2307}
                 priority

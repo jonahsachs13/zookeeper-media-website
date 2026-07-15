@@ -11,7 +11,7 @@ export type FaqItem = {
 
 type FaqAccordionProps = {
   items: readonly FaqItem[];
-  accent?: "orange" | "fitness";
+  accent?: "orange" | "agent" | "paste";
 };
 
 const accentStyles = {
@@ -20,12 +20,19 @@ const accentStyles = {
     iconBgOpen: "group-data-[state=open]:bg-brand-orange/15",
     triggerOpen: "data-[state=open]:bg-brand-orange/[0.04]",
   },
-  fitness: {
-    icon: "text-brand-fitness dark:text-brand-fitness-light",
+  agent: {
+    icon: "text-brand-agent dark:text-brand-agent-light",
     iconBgOpen:
-      "group-data-[state=open]:bg-brand-fitness/15 dark:group-data-[state=open]:bg-brand-fitness-light/15",
+      "group-data-[state=open]:bg-brand-agent/15 dark:group-data-[state=open]:bg-brand-agent-light/15",
     triggerOpen:
-      "data-[state=open]:bg-brand-fitness/[0.04] dark:data-[state=open]:bg-brand-fitness-light/[0.06]",
+      "data-[state=open]:bg-brand-agent/[0.04] dark:data-[state=open]:bg-brand-agent-light/[0.06]",
+  },
+  paste: {
+    icon: "text-brand-paste dark:text-brand-paste-light",
+    iconBgOpen:
+      "group-data-[state=open]:bg-brand-paste/15 dark:group-data-[state=open]:bg-brand-paste-light/15",
+    triggerOpen:
+      "data-[state=open]:bg-brand-paste/[0.04] dark:data-[state=open]:bg-brand-paste-light/[0.06]",
   },
 };
 

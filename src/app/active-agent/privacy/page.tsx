@@ -1,18 +1,18 @@
-import { FitnessShareFooter } from "@/components/fitness-share/footer";
-import { FitnessShareSubNav } from "@/components/fitness-share/sub-nav";
-import { PRIVACY_SECTIONS } from "@/lib/fitness-share/privacy-content";
+import { ActiveAgentFooter } from "@/components/active-agent/footer";
+import { ActiveAgentSubNav } from "@/components/active-agent/sub-nav";
+import { PRIVACY_SECTIONS } from "@/lib/active-agent/privacy-content";
 import { withBrandSocial } from "@/lib/social-metadata";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = withBrandSocial("fitness-share", {
+export const metadata: Metadata = withBrandSocial("active-agent", {
   title: "Privacy Policy",
 });
 
-export default function FitnessSharePrivacyPage() {
+export default function ActiveAgentPrivacyPage() {
   return (
     <div className="min-h-screen">
       <div className="pb-12 sm:pb-20">
-        <FitnessShareSubNav />
+        <ActiveAgentSubNav />
         <div className="mx-auto max-w-[800px] px-4 pt-8 sm:px-6">
           <h1
             className="mb-6 text-black transition-colors duration-300 sm:mb-8 dark:text-white"
@@ -57,7 +57,7 @@ export default function FitnessSharePrivacyPage() {
           </div>
         </div>
       </div>
-      <FitnessShareFooter showPrivacyLink={false} />
+      <ActiveAgentFooter showPrivacyLink={false} />
     </div>
   );
 }

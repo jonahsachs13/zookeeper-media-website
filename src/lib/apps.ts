@@ -24,14 +24,25 @@ export const APPS: AppListing[] = [
     hoverBorderClass: "hover:border-brand-orange/40 dark:hover:border-brand-orange/40",
   },
   {
-    name: "Fitness Share",
+    name: "Active Agent",
     tagline: "Live Cursor agent status in your Menu Bar.",
     description:
       "See what your Cursor agents are doing: thinking, searching, and planning, without leaving your flow.",
-    href: "/fitness-share",
-    icon: "/fitness-share/icon.png",
-    accentClass: "bg-brand-fitness",
-    brandClass: "text-brand-fitness",
-    hoverBorderClass: "hover:border-brand-fitness/40 dark:hover:border-brand-fitness/40",
+    href: "/active-agent",
+    icon: "/active-agent/icon.png",
+    accentClass: "bg-brand-agent",
+    brandClass: "text-brand-agent",
+    hoverBorderClass: "hover:border-brand-agent/40 dark:hover:border-brand-agent/40",
+  },
+  {
+    name: "Paste Please",
+    tagline: "Clipboard history for Mac.",
+    description:
+      "Searchable clipboard history in the Menu Bar and a full window: text, images, colors, files, and links. Coming soon.",
+    href: "/paste-please",
+    icon: "/paste-please/icon.png",
+    accentClass: "bg-brand-paste",
+    brandClass: "text-brand-paste",
+    hoverBorderClass: "hover:border-brand-paste/40 dark:hover:border-brand-paste/40",
   },
 ];

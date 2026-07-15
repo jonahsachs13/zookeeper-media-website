@@ -5,10 +5,14 @@
 @theme {
   --color-brand-orange: #ff942f;
   --color-brand-orange-hover: #f08520;
-  --color-brand-fitness: #443898;
-  --color-brand-fitness-hover: #5a48b0;
-  --color-brand-fitness-light: #b0a4f5;
-  --color-brand-fitness-light-hover: #c8c0fa;
+  --color-brand-agent: #443898;
+  --color-brand-agent-hover: #5a48b0;
+  --color-brand-agent-light: #b0a4f5;
+  --color-brand-agent-light-hover: #c8c0fa;
+  --color-brand-paste: #9d4050;
+  --color-brand-paste-hover: #853544;
+  --color-brand-paste-light: #e8a4b0;
+  --color-brand-paste-light-hover: #f0c0c8;
   --color-brand-zkm: #f5c518;
   --color-brand-zkm-hover: #e0b310;
 }

@@ -75,14 +75,14 @@ export function middleware(request: NextRequest) {
     pathname === "/fitness-share/temp-yak-mail" ||
     pathname === "/fitness-share/temp-yak-mail/"
   ) {
-    return NextResponse.redirect(new URL("/fitness-share/support", request.url));
+    return NextResponse.redirect(new URL("/active-agent/support", request.url));
   }
 
-  if (pathname === "/active-agent" || pathname.startsWith("/active-agent/")) {
+  if (pathname === "/fitness-share" || pathname.startsWith("/fitness-share/")) {
     const nextPath =
-      pathname === "/active-agent" || pathname === "/active-agent/"
-        ? "/fitness-share"
-        : pathname.replace(/^\/active-agent/, "/fitness-share");
+      pathname === "/fitness-share" || pathname === "/fitness-share/"
+        ? "/active-agent"
+        : pathname.replace(/^\/fitness-share/, "/active-agent");
     return NextResponse.redirect(new URL(nextPath, request.url));
   }
 
@@ -117,7 +117,9 @@ export function middleware(request: NextRequest) {
   if (
     pathname.startsWith("/podcasts") ||
     pathname.startsWith("/sticker-packs") ||
+    pathname.startsWith("/active-agent") ||
     pathname.startsWith("/fitness-share") ||
+    pathname.startsWith("/paste-please") ||
     pathname.startsWith("/health-share")
   ) {
     return NextResponse.redirect(new URL("/", request.url));

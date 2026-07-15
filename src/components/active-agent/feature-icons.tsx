@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-type FitnessFeatureIconProps = {
+type ActiveAgentFeatureIconProps = {
   name: "liveStats" | "staysOutOfFlow" | "companion";
   className?: string;
 };
@@ -87,7 +87,7 @@ function CompanionIcon({ className, fill }: { className?: string; fill: string }
   );
 }
 
-export function FitnessFeatureIcon({ name, className = ICON_CLASS }: FitnessFeatureIconProps) {
+export function ActiveAgentFeatureIcon({ name, className = ICON_CLASS }: ActiveAgentFeatureIconProps) {
   const iconClass = cn(className);
 
   const icons = {
@@ -106,7 +106,7 @@ export function FitnessFeatureIcon({ name, className = ICON_CLASS }: FitnessFeat
   );
 }
 
-export const FITNESS_SHARE_FEATURE_ICONS = {
+export const ACTIVE_AGENT_FEATURE_ICONS = {
   liveStats: { name: "liveStats" as const, alt: "Live stats in the Menu Bar" },
   staysOutOfFlow: { name: "staysOutOfFlow" as const, alt: "Stays out of your flow" },
   companion: { name: "companion" as const, alt: "Lightweight companion" },

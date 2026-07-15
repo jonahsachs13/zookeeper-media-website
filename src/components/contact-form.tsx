@@ -8,7 +8,7 @@ type FormStatus = "idle" | "sending" | "success" | "error";
 
 type ContactFormProps = {
   subject: string;
-  brand: "easy-recipe" | "fitness-share";
+  brand: "easy-recipe" | "active-agent" | "paste-please";
 };
 
 const BRAND_STYLES = {
@@ -16,8 +16,11 @@ const BRAND_STYLES = {
     button:
       "bg-brand-orange hover:bg-brand-orange-hover",
   },
-  "fitness-share": {
-    button: "bg-brand-fitness hover:bg-brand-fitness-hover",
+  "active-agent": {
+    button: "bg-brand-agent hover:bg-brand-agent-hover",
+  },
+  "paste-please": {
+    button: "bg-brand-paste hover:bg-brand-paste-hover",
   },
 } as const;
 

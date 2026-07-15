@@ -14,7 +14,7 @@ iPad mini (A17 Pro) or newer
 iPad Air (M1) or newer
 iPad Pro (M1) or newer
 
-MacBook Neo (A17 Pro) or newer
+MacBook Neo (A18 Pro) or newer
 MacBook Air (M1) or newer
 MacBook Pro (M1) or newer
 iMac (M1) or newer

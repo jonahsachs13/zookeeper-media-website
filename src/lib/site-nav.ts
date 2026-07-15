@@ -16,7 +16,8 @@ export function getSiteNavLinks(host?: string): SiteNavLink[] {
 
   return [
     { href: EASY_RECIPE_SITE_URL, label: "Easy Recipe App" },
-    { href: onEra ? `${hub}/fitness-share` : "/fitness-share", label: "Fitness Share" },
+    { href: onEra ? `${hub}/active-agent` : "/active-agent", label: "Active Agent" },
+    { href: onEra ? `${hub}/paste-please` : "/paste-please", label: "Paste Please" },
     { href: onEra ? `${hub}/health-share` : "/health-share", label: "Health Share" },
     { href: onEra ? `${hub}/sticker-packs` : "/sticker-packs", label: "Sticker Packs" },
     { href: onEra ? `${hub}/podcasts` : "/podcasts", label: "Podcasts" },

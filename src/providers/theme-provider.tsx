@@ -9,7 +9,6 @@ export function ThemeProvider({ children, ...props }: ComponentProps<typeof Next
       attribute="class"
       defaultTheme="system"
       enableSystem
-      forcedTheme="system"
       disableTransitionOnChange
       {...props}
     >

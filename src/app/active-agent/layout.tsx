@@ -4,26 +4,26 @@ import { getMetadataBase } from "@/lib/metadata-base";
 import { brandSocialMetadata } from "@/lib/social-metadata";
 
 const DESCRIPTION =
-  "Fitness Share is a macOS Menu Bar app that shows live status for your Cursor AI agents: thinking, searching, planning, and more.";
+  "Active Agent is a macOS Menu Bar app that shows live status for your Cursor AI agents: thinking, searching, planning, and more.";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
     metadataBase: await getMetadataBase(),
-    title: "Fitness Share",
+    title: "Active Agent",
     description: DESCRIPTION,
     icons: {
-      icon: "/fitness-share/favicon.png",
-      apple: "/fitness-share/favicon.png",
+      icon: "/active-agent/favicon.png",
+      apple: "/active-agent/favicon.png",
     },
-    ...brandSocialMetadata("fitness-share", {
-      title: "Fitness Share",
+    ...brandSocialMetadata("active-agent", {
+      title: "Active Agent",
       description:
         "Live Cursor agent status in your Menu Bar. See what your agents are doing without leaving your flow.",
     }),
   };
 }
 
-export default function FitnessShareLayout({
+export default function ActiveAgentLayout({
   children,
 }: {
   children: React.ReactNode;

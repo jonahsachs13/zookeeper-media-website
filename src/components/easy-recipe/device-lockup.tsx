@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useEffectEvent, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AssetImage } from "@/components/ui/asset-image";
 import { MarketingImage } from "@/components/ui/marketing-image";
 import { cn } from "@/lib/utils";
@@ -17,8 +17,8 @@ const LAYERS = [
     src: ASSETS.deviceLockupLayers.mac,
     alt: "Easy Recipe App on Mac",
     variantClass: "reveal-scale",
-    delay: 80,
-    duration: "1.35s",
+    delay: 120,
+    duration: "2.025s",
     zIndex: 1,
   },
   {
@@ -26,8 +26,8 @@ const LAYERS = [
     src: ASSETS.deviceLockupLayers.ipad,
     alt: "Easy Recipe App on iPad",
     variantClass: "reveal-right",
-    delay: 280,
-    duration: "1.3s",
+    delay: 420,
+    duration: "1.95s",
     zIndex: 2,
   },
   {
@@ -35,8 +35,8 @@ const LAYERS = [
     src: ASSETS.deviceLockupLayers.iphone,
     alt: "Easy Recipe App on iPhone",
     variantClass: "reveal-left",
-    delay: 420,
-    duration: "0.85s",
+    delay: 630,
+    duration: "1.275s",
     zIndex: 3,
   },
 ] as const;
@@ -46,25 +46,6 @@ export function EasyRecipeDeviceLockup() {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
   const [scrollScale, setScrollScale] = useState(SCALE_AT_REST);
-
-  const updateScrollScale = useEffectEvent(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setScrollScale(SCALE_AT_REST);
-      return;
-    }
-
-    const rect = el.getBoundingClientRect();
-    const viewH = window.innerHeight;
-    // 0 near first view, rises as the lockup scrolls upward through the viewport
-    const progress = Math.min(
-      1,
-      Math.max(0, (viewH * 0.4 - rect.top) / (viewH * 0.75)),
-    );
-    setScrollScale(SCALE_AT_REST - progress * (SCALE_AT_REST - SCALE_SCROLLED));
-  });
 
   useEffect(() => {
     const el = ref.current;
@@ -82,6 +63,24 @@ export function EasyRecipeDeviceLockup() {
   }, []);
 
   useEffect(() => {
+    const updateScrollScale = () => {
+      const el = ref.current;
+      if (!el) return;
+
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        setScrollScale(SCALE_AT_REST);
+        return;
+      }
+
+      const rect = el.getBoundingClientRect();
+      const viewH = window.innerHeight;
+      const progress = Math.min(
+        1,
+        Math.max(0, (viewH * 0.4 - rect.top) / (viewH * 0.75)),
+      );
+      setScrollScale(SCALE_AT_REST - progress * (SCALE_AT_REST - SCALE_SCROLLED));
+    };
+
     updateScrollScale();
     window.addEventListener("scroll", updateScrollScale, { passive: true });
     window.addEventListener("resize", updateScrollScale, { passive: true });
@@ -89,7 +88,7 @@ export function EasyRecipeDeviceLockup() {
       window.removeEventListener("scroll", updateScrollScale);
       window.removeEventListener("resize", updateScrollScale);
     };
-  }, [updateScrollScale]);
+  }, []);
 
   return (
     <MarketingImage>

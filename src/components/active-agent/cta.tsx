@@ -1,7 +1,7 @@
 import { AppStoreBadge } from "@/components/ui/app-store-badge";
 import { RevealSection } from "@/components/ui/scroll-reveal";
 
-export function FitnessShareCta() {
+export function ActiveAgentCta() {
   return (
     <section id="download" className="border-t border-gray-200 py-12 sm:py-20 dark:border-zinc-800">
       <RevealSection
@@ -24,8 +24,8 @@ export function FitnessShareCta() {
               letterSpacing: "-0.01em",
             }}
           >
-            Download Fitness Share for macOS and keep Cursor agent status one glance
-            away.
+            Download Active Agent for Mac and keep Cursor agent status one glance
+            away. Requires macOS 14 Sonoma or newer.
           </p>
           <AppStoreBadge variant="mac-app-store" comingSoon />
         </div>

@@ -1,12 +1,12 @@
 import Link from "next/link";
 
-type FitnessShareFooterProps = {
+type ActiveAgentFooterProps = {
   showPrivacyLink?: boolean;
 };
 
-export function FitnessShareFooter({
+export function ActiveAgentFooter({
   showPrivacyLink = true,
-}: FitnessShareFooterProps) {
+}: ActiveAgentFooterProps) {
   return (
     <footer className="py-8 transition-colors duration-300">
       <div className="mx-auto max-w-[1200px] px-6 text-center">
@@ -14,12 +14,12 @@ export function FitnessShareFooter({
           className="mb-2 text-black transition-colors duration-300 dark:text-white"
           style={{ fontSize: "14px" }}
         >
-          © 2026 Fitness Share. All rights reserved.
+          © 2026 Active Agent. All rights reserved.
         </p>
         {showPrivacyLink && (
           <Link
-            href="/fitness-share/privacy"
-            className="text-black transition-colors hover:text-brand-fitness dark:text-white dark:hover:text-brand-fitness-light"
+            href="/active-agent/privacy"
+            className="text-black transition-colors hover:text-brand-agent dark:text-white dark:hover:text-brand-agent-light"
             style={{ fontSize: "14px" }}
           >
             Privacy Policy

@@ -14,10 +14,15 @@ export const SOCIAL_BRANDS = {
     alt: "Easy Recipe App",
     siteName: "Easy Recipe App",
   },
-  "fitness-share": {
-    image: "/fitness-share/og-image.jpg",
-    alt: "Fitness Share",
-    siteName: "Fitness Share",
+  "active-agent": {
+    image: "/active-agent/og-image.jpg",
+    alt: "Active Agent",
+    siteName: "Active Agent",
+  },
+  "paste-please": {
+    image: "/paste-please/og-image.jpg",
+    alt: "Paste Please",
+    siteName: "Paste Please",
   },
 } as const;
 

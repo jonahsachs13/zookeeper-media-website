@@ -11,6 +11,7 @@ import {
   getSiteNavLinks,
   type SiteNavLink,
 } from "@/lib/site-nav";
+import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { ZkmLogo } from "@/components/zookeeper/zkm-logo";
 import { cn } from "@/lib/utils";
 
@@ -135,14 +136,15 @@ export function SiteHeader({ variant = "default", position = "fixed" }: SiteHead
             ))}
           </nav>
 
-          <div className="ml-auto flex flex-shrink-0 items-center gap-2 md:hidden">
+          <div className="ml-auto flex flex-shrink-0 items-center gap-2">
+            <ThemeToggle onYellow={isHome} />
             <button
               type="button"
               onClick={() => setMenuOpen(!menuOpen)}
               className={
                 isHome
-                  ? "rounded-full bg-black/10 p-2 text-black transition-transform hover:scale-110 dark:bg-brand-zkm/10 dark:text-brand-zkm"
-                  : "rounded-full bg-gray-100 p-2 text-gray-600 transition-transform hover:scale-110 dark:bg-zinc-800 dark:text-gray-400"
+                  ? "rounded-full bg-black/10 p-2 text-black transition-transform hover:scale-110 md:hidden dark:bg-brand-zkm/10 dark:text-brand-zkm"
+                  : "rounded-full bg-gray-100 p-2 text-gray-600 transition-transform hover:scale-110 md:hidden dark:bg-zinc-800 dark:text-gray-400"
               }
               aria-label="Toggle menu"
               aria-expanded={menuOpen}
