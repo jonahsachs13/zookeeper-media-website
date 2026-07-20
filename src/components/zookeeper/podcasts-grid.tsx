@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { PodcastShow } from "@/lib/podcasts";
 
 const CTA_CLASS =
@@ -24,14 +25,9 @@ function PodcastCard({ name, tagline, description, href, artwork }: PodcastShow)
         <p className="mb-4 flex-1 text-sm leading-relaxed text-balance text-pretty text-gray-600 sm:mb-5 dark:text-gray-400">
           {description}
         </p>
-        <a
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={CTA_CLASS}
-        >
+        <Link href={href} className={CTA_CLASS}>
           Listen now
-        </a>
+        </Link>
       </div>
     </article>
   );

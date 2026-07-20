@@ -91,6 +91,10 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL(nextPath, request.url));
   }
 
+  if (pathname === "/podcasts/v2" || pathname === "/podcasts/v2/") {
+    return NextResponse.redirect(new URL("/podcasts", request.url));
+  }
+
   if (!EASY_RECIPE_HOSTS.has(host)) {
     return withSiteHost(request, host);
   }
