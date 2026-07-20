@@ -6,7 +6,7 @@ import { HERO_SUBTITLE, HERO_TITLE } from "@/lib/paste-please/marketing";
 
 export function PastePleaseHero() {
   return (
-    <section className="pb-12 pt-6 sm:pb-20 sm:pt-8">
+    <section className="pb-4 pt-6 sm:pb-8 sm:pt-8">
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6">
         <div className="text-center">
           <AppPageHeroHeader

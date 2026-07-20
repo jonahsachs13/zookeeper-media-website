@@ -3,6 +3,7 @@ import { PastePleaseFaq } from "@/components/paste-please/faq";
 import { PastePleaseFeatures } from "@/components/paste-please/features";
 import { PastePleaseFooter } from "@/components/paste-please/footer";
 import { PastePleaseHero } from "@/components/paste-please/hero";
+import { PastePleaseScreenshots } from "@/components/paste-please/screenshots";
 import { PastePleaseSubNav } from "@/components/paste-please/sub-nav";
 
 export default function PastePleasePage() {
@@ -11,6 +12,7 @@ export default function PastePleasePage() {
       <PastePleaseSubNav />
       <main>
         <PastePleaseHero />
+        <PastePleaseScreenshots />
         <PastePleaseFeatures />
         <PastePleaseFaq />
         <PastePleaseCta />
