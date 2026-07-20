@@ -45,4 +45,15 @@ export const APPS: AppListing[] = [
     brandClass: "text-brand-paste",
     hoverBorderClass: "hover:border-brand-paste/40 dark:hover:border-brand-paste/40",
   },
+  {
+    name: "Fitness Share",
+    tagline: "Your fitness, ready to share.",
+    description:
+      "Polished workout cards and stickers for Messages and social media. Coming soon.",
+    href: "/fitness-share",
+    icon: "/fitness-share/icon.png?v=2",
+    accentClass: "bg-brand-fitness",
+    brandClass: "text-brand-fitness",
+    hoverBorderClass: "hover:border-brand-fitness/40 dark:hover:border-brand-fitness/40",
+  },
 ];

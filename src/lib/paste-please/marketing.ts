@@ -35,4 +35,4 @@ export const FEATURES = [
 export const CTA_HEADING = "Coming soon to the Mac App Store";
 
 export const CTA_SUBTITLE =
-  "Paste Please for Mac is on the way. Free to download when it launches. Requires macOS 14 Sonoma or newer.";
+  "Paste Please for Mac is on the way. Free to download when it launches. Requires macOS 15 Sequoia or newer.";

@@ -19,6 +19,11 @@ export const SOCIAL_BRANDS = {
     alt: "Active Agent",
     siteName: "Active Agent",
   },
+  "fitness-share": {
+    image: "/fitness-share/og-image.jpg",
+    alt: "Fitness Share",
+    siteName: "Fitness Share",
+  },
   "paste-please": {
     image: "/paste-please/og-image.jpg",
     alt: "Paste Please",

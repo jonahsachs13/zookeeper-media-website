@@ -41,7 +41,7 @@ export function ActiveAgentFeatures() {
           Built for Cursor power users
         </h2>
 
-        <RevealSection className="mb-12 sm:mb-16" variant="scale" delay={120}>
+        <RevealSection className="mb-12 sm:mb-16" variant="fade" delay={120}>
           <MarketingImage>
             <AssetImage
               src={ASSETS.menuBarGlance}

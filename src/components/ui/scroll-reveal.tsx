@@ -13,6 +13,16 @@ const VARIANT_CLASS: Record<RevealVariant, string> = {
   right: "reveal-right",
 };
 
+/** Match longest default reveal in globals.css, plus buffer. */
+const SETTLE_BUFFER_MS = 80;
+const VARIANT_DURATION_MS: Record<RevealVariant, number> = {
+  up: 850,
+  fade: 900,
+  scale: 800,
+  left: 850,
+  right: 850,
+};
+
 function useRevealObserver(threshold: number, rootMargin: string) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
@@ -35,6 +45,23 @@ function useRevealObserver(threshold: number, rootMargin: string) {
   return { ref, visible };
 }
 
+/** Drop leftover transforms after the reveal so Safari keeps images sharp. */
+function useRevealSettle(visible: boolean, variant: RevealVariant, delay: number) {
+  const [settled, setSettled] = useState(false);
+
+  useEffect(() => {
+    if (!visible) {
+      setSettled(false);
+      return;
+    }
+    const ms = delay + VARIANT_DURATION_MS[variant] + SETTLE_BUFFER_MS;
+    const timer = window.setTimeout(() => setSettled(true), ms);
+    return () => window.clearTimeout(timer);
+  }, [visible, variant, delay]);
+
+  return settled;
+}
+
 type RevealSectionProps = {
   children: React.ReactNode;
   className?: string;
@@ -49,11 +76,17 @@ export function RevealSection({
   delay = 0,
 }: RevealSectionProps) {
   const { ref, visible } = useRevealObserver(0.12, "0px 0px -6% 0px");
+  const settled = useRevealSettle(visible, variant, delay);
 
   return (
     <div
       ref={ref}
-      className={cn("reveal-section", VARIANT_CLASS[variant], visible && "is-visible", className)}
+      className={cn(
+        settled
+          ? null
+          : cn("reveal-section", VARIANT_CLASS[variant], visible && "is-visible"),
+        className,
+      )}
       style={{ "--reveal-delay": `${delay}ms` } as React.CSSProperties}
     >
       {children}
@@ -77,11 +110,17 @@ export function RevealItem({
   style,
 }: RevealItemProps) {
   const { ref, visible } = useRevealObserver(0.2, "0px 0px -4% 0px");
+  const settled = useRevealSettle(visible, variant, delay);
 
   return (
     <div
       ref={ref}
-      className={cn("reveal-section", VARIANT_CLASS[variant], visible && "is-visible", className)}
+      className={cn(
+        settled
+          ? null
+          : cn("reveal-section", VARIANT_CLASS[variant], visible && "is-visible"),
+        className,
+      )}
       style={{ "--reveal-delay": `${delay}ms`, ...style } as React.CSSProperties}
     >
       {children}

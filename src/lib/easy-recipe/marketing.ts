@@ -24,13 +24,13 @@ export const FEATURES = [
   {
     title: "Private by Design",
     description:
-      "AI runs on your device. For complex recipes on iOS, iPadOS, and macOS 27+, Apple's Private Cloud Compute steps in — 100% secure, never readable by us. No account, no tracking.",
+      "AI on your device. Complex recipes use Apple's Private Cloud Compute on iOS, iPadOS, and macOS 27+. No account, no tracking.",
     icon: "private" as const,
   },
   {
     title: "Built for Cooking",
     description:
-      "Scale servings, follow clear step-by-step instructions, and run cooking timers with Live Activity on your Lock Screen.",
+      "Scale servings, follow clear steps, and run timers with Live Activities on your Lock Screen and Dynamic Island.",
     icon: "cooking" as const,
   },
 ] as const;

@@ -71,18 +71,23 @@ export function middleware(request: NextRequest) {
 
   if (
     pathname === "/active-agent/temp-yak-mail" ||
-    pathname === "/active-agent/temp-yak-mail/" ||
-    pathname === "/fitness-share/temp-yak-mail" ||
-    pathname === "/fitness-share/temp-yak-mail/"
+    pathname === "/active-agent/temp-yak-mail/"
   ) {
     return NextResponse.redirect(new URL("/active-agent/support", request.url));
   }
 
-  if (pathname === "/fitness-share" || pathname.startsWith("/fitness-share/")) {
+  if (
+    pathname === "/fitness-share/temp-yak-mail" ||
+    pathname === "/fitness-share/temp-yak-mail/"
+  ) {
+    return NextResponse.redirect(new URL("/fitness-share/support", request.url));
+  }
+
+  if (pathname === "/health-share" || pathname.startsWith("/health-share/")) {
     const nextPath =
-      pathname === "/fitness-share" || pathname === "/fitness-share/"
-        ? "/active-agent"
-        : pathname.replace(/^\/fitness-share/, "/active-agent");
+      pathname === "/health-share" || pathname === "/health-share/"
+        ? "/fitness-share"
+        : pathname.replace(/^\/health-share/, "/fitness-share");
     return NextResponse.redirect(new URL(nextPath, request.url));
   }
 

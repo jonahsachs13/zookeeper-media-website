@@ -9,6 +9,10 @@
   --color-brand-agent-hover: #5a48b0;
   --color-brand-agent-light: #b0a4f5;
   --color-brand-agent-light-hover: #c8c0fa;
+  --color-brand-fitness: #eb57a8;
+  --color-brand-fitness-hover: #d94899;
+  --color-brand-fitness-light: #f5a3d0;
+  --color-brand-fitness-light-hover: #f8c0df;
   --color-brand-paste: #9d4050;
   --color-brand-paste-hover: #853544;
   --color-brand-paste-light: #e8a4b0;
@@ -42,7 +46,7 @@
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: none;
   }
 }
 
@@ -58,7 +62,7 @@
   }
   to {
     opacity: 1;
-    transform: scale(1);
+    transform: none;
   }
 }
 
@@ -69,7 +73,7 @@
   }
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: none;
   }
 }
 
@@ -80,7 +84,7 @@
   }
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: none;
   }
 }
 

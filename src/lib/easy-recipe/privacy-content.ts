@@ -75,4 +75,15 @@ export const PRIVACY_SECTIONS = [
       },
     ],
   },
+  {
+    heading: "Third-Party Copyright",
+    paragraphs: [
+      {
+        text: "Recipes you import belong to their original creators. Easy Recipe App does not claim ownership of recipe content, photos, videos, or other material you save from elsewhere. You are responsible for how you use imported content.",
+      },
+      {
+        text: "Instagram, Facebook, and Meta are trademarks of Meta Platforms, Inc. TikTok is a trademark of ByteDance Ltd. YouTube is a trademark of Google LLC. Apple, iPhone, iPad, Mac, iCloud, and Apple Intelligence are trademarks of Apple Inc. All other product names, logos, and brands mentioned in Easy Recipe App or on this site are the property of their respective owners. Easy Recipe App is not affiliated with, endorsed by, or sponsored by these companies.",
+      },
+    ],
+  },
 ] as const;

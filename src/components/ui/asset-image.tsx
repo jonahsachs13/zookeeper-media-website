@@ -24,10 +24,14 @@ export function AssetImage({
     // eslint-disable-next-line @next/next/no-img-element
     <img
       src={src}
+      srcSet={`${src} ${intrinsicWidth}w`}
+      sizes="100vw"
       alt={alt}
+      width={intrinsicWidth}
+      height={intrinsicHeight}
       loading={priority ? "eager" : "lazy"}
       fetchPriority={priority ? "high" : "auto"}
-      decoding="async"
+      decoding={priority ? "sync" : "async"}
       className={cn("block h-auto max-w-full", className)}
       style={{ aspectRatio: `${intrinsicWidth} / ${intrinsicHeight}` }}
     />

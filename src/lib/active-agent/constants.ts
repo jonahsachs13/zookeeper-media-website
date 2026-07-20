@@ -4,7 +4,7 @@ export const DOWNLOAD_URL = "https://zookeepermedia.com/active-agent/download";
 
 /** In-page UI assets only — favicon and OG image are set in layout metadata. */
 /** Bump ?v= when replacing a public asset so browsers drop stale low-res cache. */
-const ASSET_VERSION = "9";
+const ASSET_VERSION = "10";
 
 export const ASSETS = {
   icon: `/active-agent/icon.png?v=${ASSET_VERSION}`,

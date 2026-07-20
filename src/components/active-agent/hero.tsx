@@ -25,7 +25,7 @@ export function ActiveAgentHero() {
             {TAGLINE} See thinking, searching, and planning at a glance, without
             leaving your flow.
           </p>
-          <RevealSection variant="scale" delay={150}>
+          <RevealSection variant="fade" delay={150}>
             <MarketingImage>
               <AssetImage
                 src={ASSETS.menuBarScreenshot}

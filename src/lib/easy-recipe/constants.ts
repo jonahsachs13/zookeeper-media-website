@@ -8,7 +8,7 @@ export const BRAND_ORANGE_HOVER = "#f08520";
 
 /** In-page UI assets only — favicon and OG image are set in layout metadata. */
 /** Bump ?v= when replacing a public asset so browsers drop stale low-res cache. */
-const ASSET_VERSION = "11";
+const ASSET_VERSION = "14";
 
 export const ASSETS = {
   icon: `/easy-recipe/icon.png?v=${ASSET_VERSION}`,
