@@ -1,7 +1,5 @@
 import { AppPageHeroHeader } from "@/components/ui/app-page-hero-header";
-import { AssetImage } from "@/components/ui/asset-image";
-import { MarketingImage } from "@/components/ui/marketing-image";
-import { RevealSection } from "@/components/ui/scroll-reveal";
+import { ActiveAgentHeroShot } from "@/components/active-agent/hero-shot";
 import { ASSETS, TAGLINE } from "@/lib/active-agent/constants";
 
 export function ActiveAgentHero() {
@@ -25,19 +23,7 @@ export function ActiveAgentHero() {
             {TAGLINE} See thinking, searching, and planning at a glance, without
             leaving your flow.
           </p>
-          <RevealSection variant="fade" delay={150}>
-            <MarketingImage>
-              <AssetImage
-                src={ASSETS.menuBarScreenshot}
-                alt="Active Agent showing live Cursor agent status across projects"
-                intrinsicWidth={3810}
-                intrinsicHeight={2307}
-                priority
-                className="w-full max-w-[900px]"
-                sizes="(max-width: 900px) 100vw, 900px"
-              />
-            </MarketingImage>
-          </RevealSection>
+          <ActiveAgentHeroShot />
         </div>
       </div>
     </section>
