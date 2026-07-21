@@ -38,7 +38,7 @@ export const APPS: AppListing[] = [
     name: "Paste Please",
     tagline: "Clipboard history for Mac.",
     description:
-      "Searchable clipboard history in the Menu Bar and a full window: text, images, colors, files, and links. Coming soon.",
+      "Searchable clipboard history in the Menu Bar and a full window: text, images, colors, files, and links.",
     href: "/paste-please",
     icon: "/paste-please/icon.png",
     accentClass: "bg-brand-paste",

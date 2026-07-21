@@ -1,7 +1,7 @@
 export const HERO_TITLE = "Your clipboard, remembered.";
 
 export const HERO_SUBTITLE =
-  "Paste Please keeps a searchable history of what you copy on your Mac (text, images, colors, files, and links) in the Menu Bar and a full window. Coming soon.";
+  "Paste Please keeps a searchable history of what you copy on your Mac (text, images, colors, files, and links) in the Menu Bar and a full window.";
 
 export const FEATURES_HEADING = "Copy once. Paste anytime.";
 
@@ -32,7 +32,7 @@ export const FEATURES = [
   },
 ] as const;
 
-export const CTA_HEADING = "Coming soon to the Mac App Store";
+export const CTA_HEADING = "Get Paste Please";
 
 export const CTA_SUBTITLE =
-  "Paste Please for Mac is on the way. Free to download when it launches. Requires macOS 15 Sequoia or newer.";
+  "Free on the Mac App Store. Requires macOS 15 Sequoia or newer.";

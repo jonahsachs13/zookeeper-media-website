@@ -1,7 +1,7 @@
 import { AppPageHeroHeader } from "@/components/ui/app-page-hero-header";
 import { AppStoreBadge } from "@/components/ui/app-store-badge";
 import { RevealSection } from "@/components/ui/scroll-reveal";
-import { ASSETS } from "@/lib/paste-please/constants";
+import { APP_STORE_URL, ASSETS } from "@/lib/paste-please/constants";
 import { HERO_SUBTITLE, HERO_TITLE } from "@/lib/paste-please/marketing";
 
 export function PastePleaseHero() {
@@ -24,8 +24,8 @@ export function PastePleaseHero() {
           >
             {HERO_SUBTITLE}
           </p>
-          <RevealSection variant="scale" delay={150}>
-            <AppStoreBadge variant="mac-app-store" comingSoon />
+          <RevealSection variant="fade" delay={150}>
+            <AppStoreBadge href={APP_STORE_URL} variant="mac-app-store" />
           </RevealSection>
         </div>
       </div>

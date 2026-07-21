@@ -1,5 +1,6 @@
 import { AppStoreBadge } from "@/components/ui/app-store-badge";
 import { RevealSection } from "@/components/ui/scroll-reveal";
+import { APP_STORE_URL } from "@/lib/paste-please/constants";
 import { CTA_HEADING, CTA_SUBTITLE } from "@/lib/paste-please/marketing";
 
 export function PastePleaseCta() {
@@ -7,7 +8,7 @@ export function PastePleaseCta() {
     <section id="download" className="border-t border-gray-200 py-12 sm:py-20 dark:border-zinc-800">
       <RevealSection
         className="mx-auto max-w-[1200px] px-4 sm:px-6"
-        variant="scale"
+        variant="fade"
         delay={100}
       >
         <div className="text-center">
@@ -27,7 +28,7 @@ export function PastePleaseCta() {
           >
             {CTA_SUBTITLE}
           </p>
-          <AppStoreBadge variant="mac-app-store" comingSoon />
+          <AppStoreBadge href={APP_STORE_URL} variant="mac-app-store" />
         </div>
       </RevealSection>
     </section>

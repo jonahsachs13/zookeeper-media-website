@@ -16,7 +16,7 @@ export async function generateMetadata(): Promise<Metadata> {
     ...brandSocialMetadata("paste-please", {
       title: "Paste Please",
       description:
-        "Clipboard history for Mac. Search, preview, and paste from the Menu Bar. Coming soon on the Mac App Store.",
+        "Clipboard history for Mac. Search, preview, and paste from the Menu Bar. Free on the Mac App Store.",
     }),
   };
 }
