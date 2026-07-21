@@ -33,13 +33,15 @@ const FEATURES = [
 export function ActiveAgentFeatures() {
   return (
     <section id="features" className="scroll-mt-20 border-t border-gray-200 py-12 sm:py-20 dark:border-zinc-800">
-      <RevealSection className="mx-auto max-w-[1200px] px-4 sm:px-6" variant="up">
-        <h2
-          className="mb-8 text-center text-black sm:mb-12 dark:text-white"
-          style={{ fontSize: "clamp(32px, 6vw, 40px)", fontWeight: 700 }}
-        >
-          Built for Cursor power users
-        </h2>
+      <div className="mx-auto max-w-[1200px] px-4 sm:px-6">
+        <RevealSection variant="fade">
+          <h2
+            className="mb-8 text-center text-black sm:mb-12 dark:text-white"
+            style={{ fontSize: "clamp(32px, 6vw, 40px)", fontWeight: 700 }}
+          >
+            Built for Cursor power users
+          </h2>
+        </RevealSection>
 
         <RevealSection className="mb-12 sm:mb-16" variant="fade" delay={120}>
           <MarketingImage>
@@ -49,6 +51,7 @@ export function ActiveAgentFeatures() {
               intrinsicWidth={3810}
               intrinsicHeight={2307}
               className="w-full max-w-[720px]"
+              sizes="(max-width: 720px) 100vw, 720px"
             />
           </MarketingImage>
         </RevealSection>
@@ -57,7 +60,7 @@ export function ActiveAgentFeatures() {
           {FEATURES.map(({ title, description, icon }, index) => (
             <RevealItem
               key={title}
-              variant="scale"
+              variant="fade"
               delay={index * 120}
               className={cn(
                 index === 2 &&
@@ -75,7 +78,7 @@ export function ActiveAgentFeatures() {
             </RevealItem>
           ))}
         </div>
-      </RevealSection>
+      </div>
     </section>
   );
 }

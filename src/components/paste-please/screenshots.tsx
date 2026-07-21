@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 
 /**
  * Full app first, Menu Bar second — stacked on mobile, side-by-side on desktop.
- * Staggered entrance matches Easy Recipe device lockup (slide + settle).
+ * Opacity-only reveals (no transform) so Safari keeps the PNGs sharp.
  */
 export function PastePleaseScreenshots() {
   const ref = useRef<HTMLDivElement>(null);
@@ -20,9 +20,7 @@ export function PastePleaseScreenshots() {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-        }
+        if (entry.isIntersecting) setVisible(true);
       },
       { threshold: 0.12, rootMargin: "0px 0px -6% 0px" },
     );
@@ -33,7 +31,7 @@ export function PastePleaseScreenshots() {
 
   useEffect(() => {
     if (!visible) return;
-    const longestMs = 420 + 1950 + 80;
+    const longestMs = 420 + 2025 + 80;
     const timer = window.setTimeout(() => setSettled(true), longestMs);
     return () => window.clearTimeout(timer);
   }, [visible]);
@@ -49,7 +47,7 @@ export function PastePleaseScreenshots() {
             "w-full md:flex-1",
             settled
               ? "opacity-100"
-              : cn("reveal-section", "reveal-left", visible && "is-visible"),
+              : cn("reveal-section", "reveal-fade", visible && "is-visible"),
           )}
           style={
             {
@@ -74,7 +72,7 @@ export function PastePleaseScreenshots() {
             "w-full md:flex-1",
             settled
               ? "opacity-100"
-              : cn("reveal-section", "reveal-right", visible && "is-visible"),
+              : cn("reveal-section", "reveal-fade", visible && "is-visible"),
           )}
           style={
             {

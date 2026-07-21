@@ -9,6 +9,8 @@ type AssetImageProps = {
   intrinsicHeight: number;
   className?: string;
   priority?: boolean;
+  /** CSS sizes hint for srcset; default suits full-bleed marketing shots. */
+  sizes?: string;
 };
 
 /** Full-resolution local assets — no Next.js image pipeline. */
@@ -19,19 +21,21 @@ export function AssetImage({
   intrinsicHeight,
   className,
   priority,
+  sizes = "100vw",
 }: AssetImageProps) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
       src={src}
       srcSet={`${src} ${intrinsicWidth}w`}
-      sizes="100vw"
+      sizes={sizes}
       alt={alt}
       width={intrinsicWidth}
       height={intrinsicHeight}
       loading={priority ? "eager" : "lazy"}
       fetchPriority={priority ? "high" : "auto"}
       decoding={priority ? "sync" : "async"}
+      draggable={false}
       className={cn("block h-auto max-w-full", className)}
       style={{ aspectRatio: `${intrinsicWidth} / ${intrinsicHeight}` }}
     />

@@ -34,6 +34,7 @@ export function ActiveAgentHero() {
                 intrinsicHeight={2307}
                 priority
                 className="w-full max-w-[900px]"
+                sizes="(max-width: 900px) 100vw, 900px"
               />
             </MarketingImage>
           </RevealSection>

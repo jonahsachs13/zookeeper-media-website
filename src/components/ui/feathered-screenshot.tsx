@@ -13,9 +13,14 @@ type FeatheredScreenshotProps = {
   priority?: boolean;
 };
 
-const FEATHER_MASK: Record<FeatherEdge, string> = {
-  bottom: "linear-gradient(to bottom, black 0%, black 90%, transparent 100%)",
-  top: "linear-gradient(to bottom, transparent 0%, black 10%, black 100%)",
+/**
+ * Soft edge via gradient overlay — not CSS mask.
+ * Safari rasterizes masked <img> soft until zoom; overlays stay sharp.
+ */
+const FEATHER_OVERLAY: Record<FeatherEdge, string> = {
+  bottom:
+    "pointer-events-none absolute inset-x-0 bottom-0 h-[14%] bg-gradient-to-t from-white to-transparent dark:from-black",
+  top: "pointer-events-none absolute inset-x-0 top-0 h-[14%] bg-gradient-to-b from-white to-transparent dark:from-black",
 };
 
 export function FeatheredScreenshot({
@@ -28,13 +33,7 @@ export function FeatheredScreenshot({
   priority,
 }: FeatheredScreenshotProps) {
   return (
-    <div
-      className={cn("mx-auto w-full", className)}
-      style={{
-        maskImage: FEATHER_MASK[feather],
-        WebkitMaskImage: FEATHER_MASK[feather],
-      }}
-    >
+    <div className={cn("relative mx-auto w-full", className)}>
       <AssetImage
         src={src}
         alt={alt}
@@ -43,6 +42,7 @@ export function FeatheredScreenshot({
         priority={priority}
         className="w-full"
       />
+      <div aria-hidden className={FEATHER_OVERLAY[feather]} />
     </div>
   );
 }

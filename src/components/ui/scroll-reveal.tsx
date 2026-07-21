@@ -23,24 +23,28 @@ const VARIANT_DURATION_MS: Record<RevealVariant, number> = {
   right: 850,
 };
 
+/** Fire once when entering view — never re-apply transforms on scroll. */
 function useRevealObserver(threshold: number, rootMargin: string) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
+    if (!el || visible) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setVisible(entry.isIntersecting);
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
       },
       { threshold, rootMargin },
     );
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, [threshold, rootMargin]);
+  }, [threshold, rootMargin, visible]);
 
   return { ref, visible };
 }
@@ -50,14 +54,11 @@ function useRevealSettle(visible: boolean, variant: RevealVariant, delay: number
   const [settled, setSettled] = useState(false);
 
   useEffect(() => {
-    if (!visible) {
-      setSettled(false);
-      return;
-    }
+    if (!visible || settled) return;
     const ms = delay + VARIANT_DURATION_MS[variant] + SETTLE_BUFFER_MS;
     const timer = window.setTimeout(() => setSettled(true), ms);
     return () => window.clearTimeout(timer);
-  }, [visible, variant, delay]);
+  }, [visible, variant, delay, settled]);
 
   return settled;
 }
