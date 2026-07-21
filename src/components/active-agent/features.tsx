@@ -17,7 +17,7 @@ const FEATURES = [
     icon: <ActiveAgentFeatureIcon name={ACTIVE_AGENT_FEATURE_ICONS.liveStats.name} />,
   },
   {
-    title: "Stays Out of Flow",
+    title: "Glanceable",
     description:
       "No extra windows or tab switching. Active Agent lives in the macOS Menu Bar where utilities belong, staying out of your way.",
     icon: <ActiveAgentFeatureIcon name={ACTIVE_AGENT_FEATURE_ICONS.staysOutOfFlow.name} />,

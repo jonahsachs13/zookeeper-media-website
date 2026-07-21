@@ -108,6 +108,6 @@ export function ActiveAgentFeatureIcon({ name, className = ICON_CLASS }: ActiveA
 
 export const ACTIVE_AGENT_FEATURE_ICONS = {
   liveStats: { name: "liveStats" as const, alt: "Live stats in the Menu Bar" },
-  staysOutOfFlow: { name: "staysOutOfFlow" as const, alt: "Stays out of your flow" },
+  staysOutOfFlow: { name: "staysOutOfFlow" as const, alt: "Glanceable" },
   companion: { name: "companion" as const, alt: "Lightweight companion" },
 } as const;
