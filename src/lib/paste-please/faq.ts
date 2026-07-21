@@ -16,7 +16,7 @@ export const FAQ_ITEMS = [
   },
   {
     question: "What are the system requirements?",
-    answer: `macOS 15 Sequoia or newer is required.
+    answer: `macOS 15 Sequoia or newer is required
 
 MacBook Neo (A18 Pro) or newer
 MacBook Air (M1) or newer
