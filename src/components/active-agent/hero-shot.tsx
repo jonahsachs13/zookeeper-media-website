@@ -1,25 +1,26 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { AssetImage } from "@/components/ui/asset-image";
 import { MarketingImage } from "@/components/ui/marketing-image";
 import { ASSETS } from "@/lib/active-agent/constants";
 import { cn } from "@/lib/utils";
 
-/** Focus on the Menu Bar popover (upper-right of the laptop screen). */
-const ORIGIN_X = "68%";
-const ORIGIN_Y = "27%";
-const START_SCALE = 2.35;
-const ZOOM_MS = 2200;
-const ZOOM_EASING = "cubic-bezier(0.22, 1, 0.36, 1)";
+/** Center of the Active Agent Menu Bar popover in the laptop screenshot. */
+const ORIGIN_X = "73%";
+const ORIGIN_Y = "30%";
+/** Phone: tight on the Menu Bar app so it reads; desktop: milder crop. */
+const START_SCALE_MOBILE = 4.2;
+const START_SCALE_DESKTOP = 2.35;
+const MOBILE_MQ = "(max-width: 639px)";
 
 /**
- * Starts tight on the Active Agent Menu Bar UI, then zooms out to the full Mac.
- * Transform is removed after the animation so Safari re-rasters the PNG sharp.
+ * Sticky scroll-scrubbed zoom: stays tight on the Menu Bar until the user
+ * scrolls, then expands to the full Mac. No enter / intersection autoplay.
  */
 export function ActiveAgentHeroShot() {
-  const ref = useRef<HTMLDivElement>(null);
-  const [started, setStarted] = useState(false);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(START_SCALE_MOBILE);
   const [settled, setSettled] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(false);
 
@@ -31,56 +32,41 @@ export function ActiveAgentHeroShot() {
     return () => media.removeEventListener("change", update);
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (reduceMotion) {
-      setStarted(true);
+      setScale(1);
       setSettled(true);
       return;
     }
 
-    const el = ref.current;
-    if (!el) return;
+    const update = () => {
+      const track = trackRef.current;
+      if (!track) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setStarted(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.2, rootMargin: "0px 0px -8% 0px" },
-    );
+      const mobile = window.matchMedia(MOBILE_MQ).matches;
+      const startScale = mobile ? START_SCALE_MOBILE : START_SCALE_DESKTOP;
+      const rect = track.getBoundingClientRect();
+      const scrollable = Math.max(1, track.offsetHeight - window.innerHeight);
+      const progress = Math.min(1, Math.max(0, -rect.top / scrollable));
+      const next = startScale + (1 - startScale) * progress;
 
-    observer.observe(el);
-    return () => observer.disconnect();
+      setScale(next);
+      setSettled(progress >= 1);
+    };
+
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
   }, [reduceMotion]);
 
-  useEffect(() => {
-    if (!started || reduceMotion || settled) return;
-    const timer = window.setTimeout(() => setSettled(true), ZOOM_MS + 80);
-    return () => window.clearTimeout(timer);
-  }, [started, reduceMotion, settled]);
-
-  return (
-    <MarketingImage>
-      <div
-        ref={ref}
-        className="w-full max-w-[900px] overflow-hidden rounded-sm"
-      >
-        <div
-          className={cn("will-change-transform", settled && "will-change-auto")}
-          style={
-            settled
-              ? undefined
-              : {
-                  transformOrigin: `${ORIGIN_X} ${ORIGIN_Y}`,
-                  transform: started ? "scale(1)" : `scale(${START_SCALE})`,
-                  transition: started
-                    ? `transform ${ZOOM_MS}ms ${ZOOM_EASING}`
-                    : undefined,
-                }
-          }
-        >
+  if (reduceMotion) {
+    return (
+      <MarketingImage>
+        <div className="w-full max-w-[900px] overflow-hidden rounded-sm">
           <AssetImage
             src={ASSETS.menuBarScreenshot}
             alt="Active Agent showing live Cursor agent status across projects"
@@ -91,7 +77,45 @@ export function ActiveAgentHeroShot() {
             sizes="(max-width: 900px) 100vw, 900px"
           />
         </div>
+      </MarketingImage>
+    );
+  }
+
+  return (
+    <div
+      ref={trackRef}
+      className="relative -mx-4 h-[165vh] sm:-mx-6 sm:h-[150vh]"
+    >
+      <div className="sticky top-[max(5.5rem,10vh)] flex justify-center px-4 sm:px-6">
+        <MarketingImage>
+          <div className="w-full max-w-[900px] overflow-hidden rounded-sm">
+            <div
+              className={cn(
+                "will-change-transform",
+                settled && "will-change-auto",
+              )}
+              style={
+                settled
+                  ? undefined
+                  : {
+                      transformOrigin: `${ORIGIN_X} ${ORIGIN_Y}`,
+                      transform: `scale(${scale})`,
+                    }
+              }
+            >
+              <AssetImage
+                src={ASSETS.menuBarScreenshot}
+                alt="Active Agent showing live Cursor agent status across projects"
+                intrinsicWidth={3810}
+                intrinsicHeight={2307}
+                priority
+                className="w-full max-w-none"
+                sizes="(max-width: 900px) 100vw, 900px"
+              />
+            </div>
+          </div>
+        </MarketingImage>
       </div>
-    </MarketingImage>
+    </div>
   );
 }

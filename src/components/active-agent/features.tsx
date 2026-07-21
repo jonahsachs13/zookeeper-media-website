@@ -17,7 +17,7 @@ const FEATURES = [
     icon: <ActiveAgentFeatureIcon name={ACTIVE_AGENT_FEATURE_ICONS.liveStats.name} />,
   },
   {
-    title: "Stays Out of Flow",
+    title: "Glanceable",
     description:
       "No extra windows or tab switching. Active Agent lives in the macOS Menu Bar where utilities belong, staying out of your way.",
     icon: <ActiveAgentFeatureIcon name={ACTIVE_AGENT_FEATURE_ICONS.staysOutOfFlow.name} />,
@@ -32,7 +32,7 @@ const FEATURES = [
 
 export function ActiveAgentFeatures() {
   return (
-    <section id="features" className="scroll-mt-20 border-t border-gray-200 py-12 sm:py-20 dark:border-zinc-800">
+    <section id="features" className="scroll-mt-20 py-12 sm:py-20">
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6">
         <RevealSection variant="fade">
           <h2
