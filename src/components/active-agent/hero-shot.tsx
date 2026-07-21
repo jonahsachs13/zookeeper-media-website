@@ -1,26 +1,54 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { AssetImage } from "@/components/ui/asset-image";
 import { MarketingImage } from "@/components/ui/marketing-image";
 import { ASSETS } from "@/lib/active-agent/constants";
 import { cn } from "@/lib/utils";
 
-/** Focus on the Menu Bar popover (upper-right of the laptop screen). */
-const ORIGIN_X = "68%";
-const ORIGIN_Y = "27%";
-const START_SCALE = 2.35;
-const ZOOM_MS = 2200;
-const ZOOM_EASING = "cubic-bezier(0.22, 1, 0.36, 1)";
+/** Center of the Active Agent Menu Bar popover in the laptop screenshot. */
+const ORIGIN_X = "73%";
+const ORIGIN_Y = "30%";
+/** Phone: tight on the Menu Bar app so it reads; desktop: milder crop. */
+const START_SCALE_MOBILE = 4.2;
+const START_SCALE_DESKTOP = 2.35;
+const SCROLL_DISTANCE_MOBILE = 340;
+const SCROLL_DISTANCE_DESKTOP = 240;
+const MOBILE_MQ = "(max-width: 639px)";
+
+function subscribeScrollResize(onStoreChange: () => void) {
+  window.addEventListener("scroll", onStoreChange, { passive: true });
+  window.addEventListener("resize", onStoreChange, { passive: true });
+  return () => {
+    window.removeEventListener("scroll", onStoreChange);
+    window.removeEventListener("resize", onStoreChange);
+  };
+}
+
+function getZoomScale() {
+  const mobile = window.matchMedia(MOBILE_MQ).matches;
+  const startScale = mobile ? START_SCALE_MOBILE : START_SCALE_DESKTOP;
+  const distance = mobile ? SCROLL_DISTANCE_MOBILE : SCROLL_DISTANCE_DESKTOP;
+  const progress = Math.min(1, Math.max(0, window.scrollY / distance));
+  return startScale + (1 - startScale) * progress;
+}
+
+/** SSR / first paint: start zoomed so mobile does not flash the full Mac. */
+function getServerZoomScale() {
+  return START_SCALE_MOBILE;
+}
 
 /**
- * Starts tight on the Active Agent Menu Bar UI, then zooms out to the full Mac.
- * Transform is removed after the animation so Safari re-rasters the PNG sharp.
+ * Starts tight on the Active Agent Menu Bar UI (upper-right), then zooms out
+ * to the full Mac as the user scrolls. Transform is cleared at rest so Safari
+ * re-rasters the PNG sharp.
  */
 export function ActiveAgentHeroShot() {
-  const ref = useRef<HTMLDivElement>(null);
-  const [started, setStarted] = useState(false);
-  const [settled, setSettled] = useState(false);
+  const scale = useSyncExternalStore(
+    subscribeScrollResize,
+    getZoomScale,
+    getServerZoomScale,
+  );
   const [reduceMotion, setReduceMotion] = useState(false);
 
   useEffect(() => {
@@ -31,42 +59,12 @@ export function ActiveAgentHeroShot() {
     return () => media.removeEventListener("change", update);
   }, []);
 
-  useEffect(() => {
-    if (reduceMotion) {
-      setStarted(true);
-      setSettled(true);
-      return;
-    }
-
-    const el = ref.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setStarted(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.2, rootMargin: "0px 0px -8% 0px" },
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [reduceMotion]);
-
-  useEffect(() => {
-    if (!started || reduceMotion || settled) return;
-    const timer = window.setTimeout(() => setSettled(true), ZOOM_MS + 80);
-    return () => window.clearTimeout(timer);
-  }, [started, reduceMotion, settled]);
+  const effectiveScale = reduceMotion ? 1 : scale;
+  const settled = effectiveScale <= 1.001;
 
   return (
     <MarketingImage>
-      <div
-        ref={ref}
-        className="w-full max-w-[900px] overflow-hidden rounded-sm"
-      >
+      <div className="w-full max-w-[900px] overflow-hidden rounded-sm">
         <div
           className={cn("will-change-transform", settled && "will-change-auto")}
           style={
@@ -74,10 +72,7 @@ export function ActiveAgentHeroShot() {
               ? undefined
               : {
                   transformOrigin: `${ORIGIN_X} ${ORIGIN_Y}`,
-                  transform: started ? "scale(1)" : `scale(${START_SCALE})`,
-                  transition: started
-                    ? `transform ${ZOOM_MS}ms ${ZOOM_EASING}`
-                    : undefined,
+                  transform: `scale(${effectiveScale})`,
                 }
           }
         >
