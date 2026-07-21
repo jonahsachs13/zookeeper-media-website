@@ -1,7 +1,10 @@
 export const TAGLINE = "Clipboard history for Mac, always within reach.";
 
 export const METADATA_DESCRIPTION =
-  "Paste Please is a macOS clipboard history app for the Menu Bar and a full window. Search, preview, and paste text, images, colors, files, and links. Coming soon on the Mac App Store.";
+  "Paste Please is a macOS clipboard history app for the Menu Bar and a full window. Search, preview, and paste text, images, colors, files, and links. Free on the Mac App Store.";
+
+export const APP_STORE_URL =
+  "https://apps.apple.com/us/app/paste-please/id6791304589?mt=12";
 
 /** In-page UI assets only. Favicon and OG image are set in layout metadata. */
 const ASSET_VERSION = "3";
