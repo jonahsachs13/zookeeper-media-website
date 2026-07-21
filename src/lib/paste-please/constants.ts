@@ -7,7 +7,7 @@ export const APP_STORE_URL =
   "https://apps.apple.com/us/app/paste-please/id6791304589?mt=12";
 
 /** In-page UI assets only. Favicon and OG image are set in layout metadata. */
-const ASSET_VERSION = "3";
+const ASSET_VERSION = "4";
 
 export const ASSETS = {
   icon: `/paste-please/icon.png?v=${ASSET_VERSION}`,

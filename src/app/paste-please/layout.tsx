@@ -10,8 +10,8 @@ export async function generateMetadata(): Promise<Metadata> {
     title: "Paste Please",
     description: METADATA_DESCRIPTION,
     icons: {
-      icon: "/paste-please/favicon.png",
-      apple: "/paste-please/favicon.png",
+      icon: `/paste-please/favicon.png?v=4`,
+      apple: `/paste-please/icon.png?v=4`,
     },
     ...brandSocialMetadata("paste-please", {
       title: "Paste Please",
