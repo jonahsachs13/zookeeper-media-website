@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { SiteHeader } from "@/components/layout/site-header";
-import { PastePleaseDomainProvider } from "@/components/paste-please/domain-context";
 import { METADATA_DESCRIPTION } from "@/lib/paste-please/constants";
 import { getMetadataBase } from "@/lib/metadata-base";
-import { getRequestHost } from "@/lib/request-host";
 import { brandSocialMetadata } from "@/lib/social-metadata";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -23,17 +21,15 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function PastePleaseLayout({
+export default function PastePleaseLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const host = await getRequestHost();
-
   return (
-    <PastePleaseDomainProvider host={host}>
+    <>
       <SiteHeader position="static" />
       {children}
-    </PastePleaseDomainProvider>
+    </>
   );
 }

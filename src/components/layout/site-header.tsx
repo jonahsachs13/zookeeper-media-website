@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { isEasyRecipeDomain } from "@/lib/easy-recipe/paths";
-import { isPastePleaseDomain } from "@/lib/paste-please/paths";
 import {
   getHubHomeHref,
   getSiteNavHost,
@@ -34,13 +33,10 @@ function NavLink({
   onClick?: () => void;
 }) {
   const pathname = usePathname();
-  const host = getSiteNavHost();
   const isExternal = href.startsWith("http");
-  const onEra = isEasyRecipeDomain(host);
-  const onPaste = isPastePleaseDomain(host);
+  const onEra = isEasyRecipeDomain(getSiteNavHost());
   const isActive =
-    (label === "Easy Recipe App" && onEra) ||
-    (label === "Paste Please" && onPaste)
+    label === "Easy Recipe App" && onEra
       ? true
       : !isExternal && (pathname === href || (href !== "/" && pathname.startsWith(href)));
 
