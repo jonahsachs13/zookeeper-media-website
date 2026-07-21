@@ -1,10 +1,15 @@
+"use client";
+
 import Link from "next/link";
+import { usePastePleaseDomain } from "@/components/paste-please/domain-context";
 
 type PastePleaseFooterProps = {
   showPrivacyLink?: boolean;
 };
 
 export function PastePleaseFooter({ showPrivacyLink = true }: PastePleaseFooterProps) {
+  const { paths } = usePastePleaseDomain();
+
   return (
     <footer className="py-8 transition-colors duration-300">
       <div className="mx-auto max-w-[1200px] px-6 text-center">
@@ -16,7 +21,7 @@ export function PastePleaseFooter({ showPrivacyLink = true }: PastePleaseFooterP
         </p>
         {showPrivacyLink && (
           <Link
-            href="/paste-please/privacy"
+            href={paths.privacy}
             className="text-black transition-colors hover:text-brand-paste dark:text-white dark:hover:text-brand-paste-light"
             style={{ fontSize: "14px" }}
           >

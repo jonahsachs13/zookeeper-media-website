@@ -1,4 +1,5 @@
 import { EASY_RECIPE_SITE_URL } from "@/lib/easy-recipe/paths";
+import { PASTE_PLEASE_SITE_URL } from "@/lib/paste-please/paths";
 
 export type AppListing = {
   name: string;
@@ -39,7 +40,7 @@ export const APPS: AppListing[] = [
     tagline: "Clipboard history for Mac.",
     description:
       "Searchable clipboard history in the Menu Bar and a full window: text, images, colors, files, and links.",
-    href: "/paste-please",
+    href: PASTE_PLEASE_SITE_URL,
     icon: "/paste-please/icon.png",
     accentClass: "bg-brand-paste",
     brandClass: "text-brand-paste",
