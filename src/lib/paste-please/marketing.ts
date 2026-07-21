@@ -1,7 +1,7 @@
 export const HERO_TITLE = "Your clipboard, remembered.";
 
 export const HERO_SUBTITLE =
-  "Paste Please keeps a searchable history of what you copy on your Mac (text, images, colors, files, and links) in the Menu Bar and a full window.";
+  "Paste Please keeps a searchable history of what you copy on your Mac (text, images, colors, files, and links).";
 
 export const FEATURES_HEADING = "Copy once. Paste anytime.";
 
