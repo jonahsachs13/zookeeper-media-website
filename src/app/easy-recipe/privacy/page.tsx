@@ -12,7 +12,7 @@ export default function PrivacyPage() {
   return (
     <div className="min-h-screen">
       <div className="pb-12 sm:pb-20">
-        <EasyRecipeSubNav variant="minimal" />
+        <EasyRecipeSubNav />
         <div className="mx-auto max-w-[800px] px-4 pt-8 sm:px-6">
           <h1
             className="mb-6 text-black sm:mb-8 dark:text-white"

@@ -11,16 +11,8 @@ const OUTLINE_BUTTON_CLASS =
 const FILLED_BUTTON_CLASS =
   "inline-block shrink-0 whitespace-nowrap rounded-full bg-brand-orange px-2.5 py-1.5 text-[11px] font-medium text-white transition-all hover:scale-110 hover:bg-brand-orange-hover sm:px-5 sm:py-2 sm:text-sm";
 
-type EasyRecipeSubNavProps = {
-  variant?: "full" | "minimal";
-};
-
-export function EasyRecipeSubNav({ variant = "full" }: EasyRecipeSubNavProps) {
+export function EasyRecipeSubNav() {
   const { paths } = useEasyRecipeDomain();
-
-  if (variant === "minimal") {
-    return null;
-  }
 
   const navLinks = [
     { href: paths.features, label: "Features" },
