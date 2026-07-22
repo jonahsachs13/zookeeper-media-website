@@ -190,6 +190,32 @@
   animation: logo-pulse-burst 0.55s ease-in-out 3;
 }
 
+@keyframes mobile-nav-backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes mobile-nav-drawer-in {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.mobile-nav-backdrop {
+  animation: mobile-nav-backdrop-in 0.28s ease-out both;
+}
+
+.mobile-nav-drawer {
+  animation: mobile-nav-drawer-in 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .icon-marquee-track,
   .animate-logo-pulse-burst,
@@ -197,6 +223,11 @@
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
+  }
+
+  .mobile-nav-backdrop,
+  .mobile-nav-drawer {
+    animation: none !important;
   }
 }
 

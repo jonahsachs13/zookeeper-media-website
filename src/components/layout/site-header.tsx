@@ -81,6 +81,22 @@ export function SiteHeader({ variant = "default", position = "fixed" }: SiteHead
     setHubHomeHref(getHubHomeHref(host));
   }, []);
 
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [menuOpen]);
+
   const headerPositionClass = isFixed
     ? "fixed top-0 right-0 left-0"
     : "relative";
@@ -102,11 +118,11 @@ export function SiteHeader({ variant = "default", position = "fixed" }: SiteHead
   return (
     <>
       <header
-        className={
-          isHome
-            ? `${headerPositionClass} z-50 bg-brand-zkm dark:bg-black`
-            : `${headerPositionClass} z-50 bg-white dark:bg-black`
-        }
+        className={cn(
+          headerPositionClass,
+          menuOpen ? "z-[120]" : "z-50",
+          isHome ? "bg-brand-zkm dark:bg-black" : "bg-white dark:bg-black",
+        )}
       >
         <div className="flex h-14 w-full items-center px-4 sm:px-6 lg:px-10 xl:px-16 2xl:px-24">
           {logoIsExternal ? (
@@ -146,8 +162,9 @@ export function SiteHeader({ variant = "default", position = "fixed" }: SiteHead
                   ? "rounded-full bg-black/10 p-2 text-black transition-transform hover:scale-110 md:hidden dark:bg-brand-zkm/10 dark:text-brand-zkm"
                   : "rounded-full bg-gray-100 p-2 text-gray-600 transition-transform hover:scale-110 md:hidden dark:bg-zinc-800 dark:text-gray-400"
               }
-              aria-label="Toggle menu"
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
               aria-expanded={menuOpen}
+              aria-controls="mobile-nav-drawer"
             >
               {menuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
             </button>
@@ -156,24 +173,36 @@ export function SiteHeader({ variant = "default", position = "fixed" }: SiteHead
       </header>
 
       {menuOpen && (
-        <div
-          className={cn(
-            "fixed inset-x-0 top-14 z-[55] border-b px-3 py-4 md:hidden",
-            isHome
-              ? "border-black/10 bg-brand-zkm dark:border-white/10 dark:bg-black"
-              : "border-black/10 bg-white dark:border-white/10 dark:bg-black",
-          )}
-        >
-          <nav className="flex flex-col gap-4">
-            {navLinks.map((item) => (
-              <NavLink
-                key={item.href}
-                {...item}
-                variant={variant}
-                onClick={() => setMenuOpen(false)}
-              />
-            ))}
-          </nav>
+        <div className="md:hidden">
+          <button
+            type="button"
+            className="mobile-nav-backdrop fixed inset-0 z-[100] bg-black/45"
+            aria-label="Close menu"
+            onClick={() => setMenuOpen(false)}
+          />
+          <div
+            id="mobile-nav-drawer"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Site navigation"
+            className={cn(
+              "mobile-nav-drawer fixed inset-y-0 left-0 z-[110] flex w-[min(20rem,82vw)] flex-col border-r px-5 pt-20 pb-8 shadow-xl",
+              isHome
+                ? "border-black/10 bg-brand-zkm dark:border-white/10 dark:bg-black"
+                : "border-black/10 bg-white dark:border-white/10 dark:bg-black",
+            )}
+          >
+            <nav className="flex flex-col gap-5">
+              {navLinks.map((item) => (
+                <NavLink
+                  key={item.href}
+                  {...item}
+                  variant={variant}
+                  onClick={() => setMenuOpen(false)}
+                />
+              ))}
+            </nav>
+          </div>
         </div>
       )}
     </>

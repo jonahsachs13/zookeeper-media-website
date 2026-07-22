@@ -45,7 +45,8 @@ function createSwitchOverlay() {
     cursor: "pointer",
     // Keep native switch appearance — stripping it disables the Taptic.
     appearance: "auto",
-    zIndex: "2147483646",
+    // Below mobile nav drawer/backdrop so dimmed UI stays clickable
+    zIndex: "90",
     touchAction: "manipulation",
     visibility: "hidden",
     pointerEvents: "none",
@@ -103,7 +104,7 @@ export function HapticsProvider({ children }: { children: ReactNode }) {
       const layer = document.createElement("div");
       layer.dataset.hapticsLayer = "1";
       layer.style.cssText =
-        "position:fixed;inset:0;pointer-events:none;z-index:2147483646;";
+        "position:fixed;inset:0;pointer-events:none;z-index:90;";
       document.body.appendChild(layer);
 
       const syncAll = () => {
