@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { HapticsProvider } from "@/providers/haptics-provider";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { getMetadataBase } from "@/lib/metadata-base";
 import { brandSocialMetadata } from "@/lib/social-metadata";
@@ -45,7 +46,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} text-black antialiased dark:text-white`}
       >
         <ThemeProvider>
-          {children}
+          <HapticsProvider>{children}</HapticsProvider>
         </ThemeProvider>
       </body>
     </html>
