@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import type { CSSProperties } from "react";
 
 type AssetImageProps = {
   src: string;
@@ -11,6 +12,7 @@ type AssetImageProps = {
   priority?: boolean;
   /** CSS sizes hint for srcset; default suits full-bleed marketing shots. */
   sizes?: string;
+  style?: CSSProperties;
 };
 
 /** Full-resolution local assets — no Next.js image pipeline. */
@@ -22,6 +24,7 @@ export function AssetImage({
   className,
   priority,
   sizes = "100vw",
+  style,
 }: AssetImageProps) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
@@ -37,7 +40,7 @@ export function AssetImage({
       decoding={priority ? "sync" : "async"}
       draggable={false}
       className={cn("block h-auto max-w-full", className)}
-      style={{ aspectRatio: `${intrinsicWidth} / ${intrinsicHeight}` }}
+      style={{ aspectRatio: `${intrinsicWidth} / ${intrinsicHeight}`, ...style }}
     />
   );
 }

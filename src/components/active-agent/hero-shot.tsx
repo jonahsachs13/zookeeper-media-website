@@ -4,15 +4,51 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { AssetImage } from "@/components/ui/asset-image";
 import { MarketingImage } from "@/components/ui/marketing-image";
 import { ASSETS } from "@/lib/active-agent/constants";
-import { cn } from "@/lib/utils";
 
-/** Center of the Active Agent Menu Bar popover in the laptop screenshot. */
-const ORIGIN_X = "73%";
-const ORIGIN_Y = "30%";
-/** Phone: tight on the Menu Bar app so it reads; desktop: milder crop. */
-const START_SCALE_MOBILE = 4.2;
-const START_SCALE_DESKTOP = 2.35;
+const IMG_W = 3810;
+const IMG_H = 2307;
+
+/**
+ * Focal point: center of the Active Agent Menu Bar popover.
+ * Tuned so the full popover (including header) stays in frame at start zoom.
+ */
+const ORIGIN_X = 0.7;
+const ORIGIN_Y = 0.22;
+
+/** Phone: tight on the Menu Bar app; desktop: milder crop. */
+const START_SCALE_MOBILE = 3;
+const START_SCALE_DESKTOP = 2.2;
 const MOBILE_MQ = "(max-width: 639px)";
+
+function ZoomShot({ scale }: { scale: number }) {
+  // Width/position zoom (not CSS transform) so the browser paints from the
+  // full 3810px bitmap instead of upscaling a small composited layer.
+  return (
+    <div
+      className="relative w-full max-w-[900px] overflow-hidden rounded-sm"
+      style={{ aspectRatio: `${IMG_W} / ${IMG_H}` }}
+    >
+      <AssetImage
+        src={ASSETS.menuBarScreenshot}
+        alt="Active Agent showing live Cursor agent status across projects"
+        intrinsicWidth={IMG_W}
+        intrinsicHeight={IMG_H}
+        priority
+        className="absolute max-w-none"
+        sizes={`(max-width: 900px) ${Math.ceil(scale * 100)}vw, ${Math.ceil(scale * 900)}px`}
+        style={{
+          width: `${scale * 100}%`,
+          maxWidth: "none",
+          height: "auto",
+          left: `${ORIGIN_X * (1 - scale) * 100}%`,
+          top: `${ORIGIN_Y * (1 - scale) * 100}%`,
+          // Width drives height; don't lock the pre-zoom box aspect on the img.
+          aspectRatio: "auto",
+        }}
+      />
+    </div>
+  );
+}
 
 /**
  * Sticky scroll-scrubbed zoom: stays tight on the Menu Bar until the user
@@ -21,7 +57,6 @@ const MOBILE_MQ = "(max-width: 639px)";
 export function ActiveAgentHeroShot() {
   const trackRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(START_SCALE_MOBILE);
-  const [settled, setSettled] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(false);
 
   useEffect(() => {
@@ -35,7 +70,6 @@ export function ActiveAgentHeroShot() {
   useLayoutEffect(() => {
     if (reduceMotion) {
       setScale(1);
-      setSettled(true);
       return;
     }
 
@@ -48,10 +82,7 @@ export function ActiveAgentHeroShot() {
       const rect = track.getBoundingClientRect();
       const scrollable = Math.max(1, track.offsetHeight - window.innerHeight);
       const progress = Math.min(1, Math.max(0, -rect.top / scrollable));
-      const next = startScale + (1 - startScale) * progress;
-
-      setScale(next);
-      setSettled(progress >= 1);
+      setScale(startScale + (1 - startScale) * progress);
     };
 
     update();
@@ -66,17 +97,7 @@ export function ActiveAgentHeroShot() {
   if (reduceMotion) {
     return (
       <MarketingImage>
-        <div className="w-full max-w-[900px] overflow-hidden rounded-sm">
-          <AssetImage
-            src={ASSETS.menuBarScreenshot}
-            alt="Active Agent showing live Cursor agent status across projects"
-            intrinsicWidth={3810}
-            intrinsicHeight={2307}
-            priority
-            className="w-full max-w-none"
-            sizes="(max-width: 900px) 100vw, 900px"
-          />
-        </div>
+        <ZoomShot scale={1} />
       </MarketingImage>
     );
   }
@@ -84,36 +105,12 @@ export function ActiveAgentHeroShot() {
   return (
     <div
       ref={trackRef}
-      className="relative -mx-4 h-[165vh] sm:-mx-6 sm:h-[150vh]"
+      // Short mobile runway: enough to scrub the zoom without a tall empty gap.
+      className="relative -mx-4 h-[118vh] sm:-mx-6 sm:h-[145vh]"
     >
-      <div className="sticky top-[max(5.5rem,10vh)] flex justify-center px-4 sm:px-6">
+      <div className="sticky top-14 flex justify-center px-4 sm:top-[max(5.5rem,8vh)] sm:px-6">
         <MarketingImage>
-          <div className="w-full max-w-[900px] overflow-hidden rounded-sm">
-            <div
-              className={cn(
-                "will-change-transform",
-                settled && "will-change-auto",
-              )}
-              style={
-                settled
-                  ? undefined
-                  : {
-                      transformOrigin: `${ORIGIN_X} ${ORIGIN_Y}`,
-                      transform: `scale(${scale})`,
-                    }
-              }
-            >
-              <AssetImage
-                src={ASSETS.menuBarScreenshot}
-                alt="Active Agent showing live Cursor agent status across projects"
-                intrinsicWidth={3810}
-                intrinsicHeight={2307}
-                priority
-                className="w-full max-w-none"
-                sizes="(max-width: 900px) 100vw, 900px"
-              />
-            </div>
-          </div>
+          <ZoomShot scale={scale} />
         </MarketingImage>
       </div>
     </div>
