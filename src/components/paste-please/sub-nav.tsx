@@ -17,15 +17,7 @@ const OUTLINE_BUTTON_CLASS =
 const FILLED_BUTTON_CLASS =
   "inline-block shrink-0 whitespace-nowrap rounded-full bg-brand-paste px-2.5 py-1.5 text-[11px] font-semibold text-white transition-all hover:scale-110 hover:bg-brand-paste-hover sm:px-5 sm:py-2 sm:text-sm";
 
-type PastePleaseSubNavProps = {
-  variant?: "full" | "minimal";
-};
-
-export function PastePleaseSubNav({ variant = "full" }: PastePleaseSubNavProps) {
-  if (variant === "minimal") {
-    return null;
-  }
-
+export function PastePleaseSubNav() {
   return (
     <AppSubNavShell>
       {NAV_LINKS.map(({ href, label }) => (

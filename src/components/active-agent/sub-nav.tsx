@@ -16,15 +16,7 @@ const OUTLINE_BUTTON_CLASS =
 const COMING_SOON_BUTTON_CLASS =
   "relative inline-block shrink-0 cursor-not-allowed whitespace-nowrap rounded-full bg-gray-400 px-2.5 py-1.5 text-[11px] font-semibold text-white/70 sm:px-5 sm:py-2 sm:text-sm dark:bg-zinc-700 dark:text-zinc-400";
 
-type ActiveAgentSubNavProps = {
-  variant?: "full" | "minimal";
-};
-
-export function ActiveAgentSubNav({ variant = "full" }: ActiveAgentSubNavProps) {
-  if (variant === "minimal") {
-    return null;
-  }
-
+export function ActiveAgentSubNav() {
   return (
     <AppSubNavShell>
       {NAV_LINKS.map(({ href, label }) => (
