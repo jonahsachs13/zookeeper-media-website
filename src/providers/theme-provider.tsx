@@ -9,6 +9,7 @@ export function ThemeProvider({ children, ...props }: ComponentProps<typeof Next
       attribute="class"
       defaultTheme="system"
       enableSystem
+      storageKey="zkm-color-mode"
       disableTransitionOnChange
       {...props}
     >
