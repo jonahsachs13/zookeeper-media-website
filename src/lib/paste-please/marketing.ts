@@ -27,7 +27,7 @@ export const FEATURES = [
   {
     title: "Privacy Focused",
     description:
-      "History stays on your Mac. Concealed and password clipboard content is skipped.",
+      "History stays on your Mac. Concealed and password clipboard content is skipped. Nothing is uploaded, and there’s no account to create.",
     icon: "private" as const,
   },
 ] as const;
